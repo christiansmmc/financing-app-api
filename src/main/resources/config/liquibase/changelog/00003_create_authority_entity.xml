@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="01" author="christian">
+        <createTable tableName="authority">
+            <column name="name" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="your_name" id="create-user-authority-table">
+        <createTable tableName="user_authority">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="authority_name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="user_id, authority_name" tableName="user_authority"/>
+    </changeSet>
+
+    <changeSet author="your_name" id="add-user-authority-foreign-key">
+        <addForeignKeyConstraint baseTableName="user_authority" baseColumnNames="user_id"
+                                 referencedTableName="user" referencedColumnNames="id"
+                                 constraintName="fk_user_authority_user_id"
+                                 onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="user_authority" baseColumnNames="authority_name"
+                                 referencedTableName="authority" referencedColumnNames="name"
+                                 constraintName="fk_user_authority_authority_name"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+</databaseChangeLog>
