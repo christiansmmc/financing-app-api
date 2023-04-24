@@ -52,8 +52,8 @@ public class BusinessException extends RuntimeException {
         return () -> new BusinessException(entityClass);
     }
 
-    public static Supplier<BusinessException> badRequest(ErrorConstants error) {
-        return () -> new BusinessException(error, BAD_REQUEST);
+    public static void badRequest(ErrorConstants error) {
+        throw new BusinessException(error, BAD_REQUEST);
     }
 
     public static void throwIf(Boolean conditional, ErrorConstants errorConstants) {

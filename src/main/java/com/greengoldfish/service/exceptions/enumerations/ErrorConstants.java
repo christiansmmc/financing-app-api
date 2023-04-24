@@ -51,6 +51,16 @@ public enum ErrorConstants {
         public String getMessage() {
             return "The informed email is already registered";
         }
+    },
+    DATES_CANNOT_BE_NULL {
+        @Override
+        public String getValue() {
+            return "error.dates.cannot.be.null";
+        }
+        @Override
+        public String getMessage() {
+            return "The initial date and last date param cannot be null";
+        }
     };
 
     public abstract String getValue();
