@@ -1,22 +1,19 @@
 package com.greengoldfish.facade;
 
 import com.greengoldfish.domain.Transaction;
-import com.greengoldfish.domain.User;
-import com.greengoldfish.facade.dto.transaction.TransactionDTO;
+import com.greengoldfish.domain.enumeration.MonthType;
 import com.greengoldfish.facade.dto.transaction.TransactionIdDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToCreateDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToGetDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToUpdateDTO;
-import com.greengoldfish.facade.dto.user.UserIdDTO;
-import com.greengoldfish.facade.dto.user.UserToCreateDTO;
 import com.greengoldfish.facade.mapper.TransactionMapper;
-import com.greengoldfish.facade.mapper.UserMapper;
 import com.greengoldfish.service.TransactionService;
-import com.greengoldfish.service.UserService;
+import com.greengoldfish.web.rest.vm.TransactionSummaryVM;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,12 +30,12 @@ public class TransactionFacade {
         return mapper.toIdDto(service.create(transaction));
     }
 
-    @Transactional
-    public List<TransactionToGetDTO> findAll() {
-        return service.findAll().stream().map(mapper::toGetDto).collect(Collectors.toList());
+    @Transactional(readOnly = true)
+    public List<TransactionToGetDTO> findAll(LocalDate initialDate, LocalDate lastDate) {
+        return service.findAll(initialDate, lastDate).stream().map(mapper::toGetDto).collect(Collectors.toList());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public TransactionToGetDTO findById(Long id) {
         return mapper.toGetDto(service.findById(id));
     }
@@ -52,5 +49,10 @@ public class TransactionFacade {
     @Transactional
     public void delete(Long id) {
         service.delete(id);
+    }
+
+    @Transactional(readOnly = true)
+    public TransactionSummaryVM summary(LocalDate initialDate, LocalDate lastDate, MonthType month) {
+        return service.summary(initialDate, lastDate, month);
     }
 }

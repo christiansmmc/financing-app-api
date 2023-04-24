@@ -1,11 +1,13 @@
 package com.greengoldfish.web.rest;
 
 import com.greengoldfish.config.AuthoritiesConstants;
+import com.greengoldfish.domain.enumeration.MonthType;
 import com.greengoldfish.facade.TransactionFacade;
 import com.greengoldfish.facade.dto.transaction.TransactionIdDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToCreateDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToGetDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToUpdateDTO;
+import com.greengoldfish.web.rest.vm.TransactionSummaryVM;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -19,10 +21,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -46,9 +50,12 @@ public class TransactionResource {
 
     @Secured(AuthoritiesConstants.USER)
     @GetMapping("/transactions")
-    public ResponseEntity<List<TransactionToGetDTO>> findAll() {
+    public ResponseEntity<List<TransactionToGetDTO>> findAll(
+            @RequestParam(value = "initialDate", required = false) LocalDate initialDate,
+            @RequestParam(value = "lastDate", required = false) LocalDate lastDate
+    ) {
         log.debug("REST request to find all transactions");
-        List<TransactionToGetDTO> response = facade.findAll();
+        List<TransactionToGetDTO> response = facade.findAll(initialDate, lastDate);
         return ResponseEntity.ok().body(response);
     }
 
@@ -77,5 +84,17 @@ public class TransactionResource {
         log.debug("REST request to delete a transaction");
         facade.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Secured(AuthoritiesConstants.USER)
+    @GetMapping("/transactions/summary")
+    public ResponseEntity<TransactionSummaryVM> summary(
+            @RequestParam(value = "initialDate", required = false) LocalDate initialDate,
+            @RequestParam(value = "lastDate", required = false) LocalDate lastDate,
+            @RequestParam(value = "month", required = false) MonthType month
+    ) {
+        log.debug("REST request to get summary from transactions");
+        TransactionSummaryVM response = facade.summary(initialDate, lastDate, month);
+        return ResponseEntity.ok().body(response);
     }
 }
