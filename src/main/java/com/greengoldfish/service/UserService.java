@@ -4,4 +4,6 @@ import com.greengoldfish.domain.User;
 
 public interface UserService {
     User create(User user);
+
+    User getLoggedUser();
 }

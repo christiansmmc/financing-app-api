@@ -8,6 +8,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
@@ -26,7 +27,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "user")
+@Table(name = "transaction")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @ToString
 @EqualsAndHashCode
@@ -56,4 +57,7 @@ public class Transaction implements Serializable {
 
     @Column(name = "date")
     private LocalDate date;
+
+    @ManyToOne
+    private User user;
 }

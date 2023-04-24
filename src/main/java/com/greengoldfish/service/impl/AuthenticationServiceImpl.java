@@ -1,6 +1,7 @@
 package com.greengoldfish.service.impl;
 
 import com.greengoldfish.config.JwtService;
+import com.greengoldfish.config.UserPrincipal;
 import com.greengoldfish.domain.User;
 import com.greengoldfish.facade.dto.AuthenticationRequestDTO;
 import com.greengoldfish.facade.dto.AuthenticationResponseDTO;
@@ -31,7 +32,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         User user = userRepository.findByEmail(dto.getEmail())
                 .orElseThrow(BusinessException.of("User not found"));
-        String jwtToken = jwtService.generateToken(user);
+        String jwtToken = jwtService.generateToken(UserPrincipal.create(user));
 
         return AuthenticationResponseDTO
                 .builder()

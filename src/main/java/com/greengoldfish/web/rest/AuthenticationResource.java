@@ -2,7 +2,6 @@ package com.greengoldfish.web.rest;
 
 import com.greengoldfish.facade.dto.AuthenticationRequestDTO;
 import com.greengoldfish.facade.dto.AuthenticationResponseDTO;
-import com.greengoldfish.facade.dto.UserIdDTO;
 import com.greengoldfish.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/api")
