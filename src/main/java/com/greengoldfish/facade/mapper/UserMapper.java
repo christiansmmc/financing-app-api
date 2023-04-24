@@ -1,9 +1,9 @@
 package com.greengoldfish.facade.mapper;
 
 import com.greengoldfish.domain.User;
-import com.greengoldfish.facade.dto.UserDTO;
-import com.greengoldfish.facade.dto.UserIdDTO;
-import com.greengoldfish.facade.dto.UserToCreateDTO;
+import com.greengoldfish.facade.dto.user.UserDTO;
+import com.greengoldfish.facade.dto.user.UserIdDTO;
+import com.greengoldfish.facade.dto.user.UserToCreateDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

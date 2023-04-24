@@ -1,4 +1,4 @@
-package com.greengoldfish.facade.dto;
+package com.greengoldfish.facade.dto.user;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
