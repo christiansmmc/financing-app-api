@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         Authority authority = authorityRepository.findByName(AuthoritiesConstants.USER)
-                .orElseThrow(BusinessException.of("Authority not found"));
+                .orElseThrow(BusinessException.notFound(Authority.class));
         Set<Authority> authorities = new HashSet<>();
         authorities.add(authority);
 
@@ -43,14 +43,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getLoggedUser() {
         return repository.findByEmail(SecurityUtils.getCurrentUserLogin().get())
-                .orElseThrow(BusinessException.of("User not found"));
+                .orElseThrow(BusinessException.notFound(User.class));
     }
 
     private void throwIfLoginIsAlreadyRegistered(String login) {
         Optional<User> user = repository.findByEmail(login);
         BusinessException.throwIf(
                 user.isPresent(),
-                ErrorConstants.LOGIN_ALREADY_REGISTERED.getMessage()
+                ErrorConstants.EMAIL_ALREADY_REGISTERED
         );
     }
 }
