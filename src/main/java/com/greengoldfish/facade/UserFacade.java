@@ -3,6 +3,7 @@ package com.greengoldfish.facade;
 import com.greengoldfish.domain.User;
 import com.greengoldfish.facade.dto.user.UserIdDTO;
 import com.greengoldfish.facade.dto.user.UserToCreateDTO;
+import com.greengoldfish.facade.dto.user.UserToUpdateDTO;
 import com.greengoldfish.facade.mapper.UserMapper;
 import com.greengoldfish.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +21,11 @@ public class UserFacade {
     public UserIdDTO create(UserToCreateDTO dto) {
         User user = mapper.toEntity(dto);
         return mapper.toIdDto(service.create(user));
+    }
+
+    @Transactional
+    public UserIdDTO update(UserToUpdateDTO dto) {
+        User user = mapper.toEntity(dto);
+        return mapper.toIdDto(service.update(user));
     }
 }
