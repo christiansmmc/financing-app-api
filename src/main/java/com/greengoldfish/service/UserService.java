@@ -6,4 +6,6 @@ public interface UserService {
     User create(User user);
 
     User getLoggedUser();
+
+    User update(User user);
 }

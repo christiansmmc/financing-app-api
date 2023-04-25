@@ -1,17 +1,24 @@
 package com.greengoldfish.web.rest;
 
+import com.greengoldfish.config.AuthoritiesConstants;
 import com.greengoldfish.facade.UserFacade;
 import com.greengoldfish.facade.dto.user.UserIdDTO;
 import com.greengoldfish.facade.dto.user.UserToCreateDTO;
+import com.greengoldfish.facade.dto.user.UserToUpdateDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -32,5 +39,18 @@ public class UserResource {
         log.debug("REST request to create user");
         UserIdDTO response = facade.create(dto);
         return ResponseEntity.created(new URI("/api/users/" + response.getId())).body(response);
+    }
+
+    @Secured(AuthoritiesConstants.USER)
+    @PatchMapping("/users")
+    public ResponseEntity<UserIdDTO> update(@Valid @RequestBody UserToUpdateDTO dto) {
+        log.debug("REST request to update user");
+        UserIdDTO response = facade.update(dto);
+
+        String jwt = (String) RequestContextHolder.currentRequestAttributes().getAttribute("jwt", RequestAttributes.SCOPE_REQUEST);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-New-Token", jwt);
+
+        return ResponseEntity.ok().headers(headers).body(response);
     }
 }

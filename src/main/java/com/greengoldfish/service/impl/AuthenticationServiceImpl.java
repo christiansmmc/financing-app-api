@@ -8,7 +8,6 @@ import com.greengoldfish.facade.dto.AuthenticationResponseDTO;
 import com.greengoldfish.repository.UserRepository;
 import com.greengoldfish.service.AuthenticationService;
 import com.greengoldfish.service.exceptions.BusinessException;
-import com.greengoldfish.service.exceptions.enumerations.ErrorConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
