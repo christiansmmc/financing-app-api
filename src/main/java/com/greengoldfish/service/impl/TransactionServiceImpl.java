@@ -7,10 +7,10 @@ import com.greengoldfish.domain.enumeration.TransactionType;
 import com.greengoldfish.repository.TransactionRepository;
 import com.greengoldfish.service.TransactionService;
 import com.greengoldfish.service.UserService;
-import com.greengoldfish.service.exceptions.BusinessException;
-import com.greengoldfish.service.exceptions.enumerations.ErrorConstants;
+import com.greengoldfish.exception.BusinessException;
+import com.greengoldfish.exception.enumerations.ErrorConstants;
 import com.greengoldfish.web.rest.vm.TransactionSummaryVM;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository repository;
@@ -91,9 +91,9 @@ public class TransactionServiceImpl implements TransactionService {
                     lastDate = LocalDate.now().minusMonths(1).withDayOfMonth(LocalDate.now().minusMonths(1).lengthOfMonth());
                 }
             }
-        } else if (initialDate == null && lastDate == null) {
-            BusinessException.badRequest(ErrorConstants.DATES_CANNOT_BE_NULL);
         }
+
+        BusinessException.throwIf(initialDate == null && lastDate == null, ErrorConstants.DATES_CANNOT_BE_NULL);
 
         List<Transaction> transactions = repository.findAllByUserAndDateIsBetween(user, initialDate, lastDate);
 
