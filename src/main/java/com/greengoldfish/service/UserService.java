@@ -8,4 +8,6 @@ public interface UserService {
     User getLoggedUser();
 
     User update(User user);
+
+    User getByLoggedUser();
 }

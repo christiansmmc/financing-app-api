@@ -4,6 +4,7 @@ import com.greengoldfish.domain.User;
 import com.greengoldfish.facade.dto.user.UserDTO;
 import com.greengoldfish.facade.dto.user.UserIdDTO;
 import com.greengoldfish.facade.dto.user.UserToCreateDTO;
+import com.greengoldfish.facade.dto.user.UserToGetDTO;
 import com.greengoldfish.facade.dto.user.UserToUpdateDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -15,4 +16,6 @@ public interface UserMapper extends EntityMapper<UserDTO, User> {
     User toEntity(UserToUpdateDTO dto);
 
     UserIdDTO toIdDto(User user);
+
+    UserToGetDTO toGetDto(User user);
 }

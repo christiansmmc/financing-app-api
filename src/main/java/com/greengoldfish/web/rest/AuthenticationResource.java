@@ -4,6 +4,7 @@ import com.greengoldfish.facade.dto.AuthenticationRequestDTO;
 import com.greengoldfish.facade.dto.AuthenticationResponseDTO;
 import com.greengoldfish.service.AuthenticationService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AuthenticationResource {
 
     private final Logger log = LoggerFactory.getLogger(AuthenticationResource.class);

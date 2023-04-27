@@ -1,10 +1,10 @@
-package com.greengoldfish.service.exceptions;
+package com.greengoldfish.config.exception;
 
 import com.greengoldfish.service.exceptions.enumerations.ErrorConstants;
 import com.greengoldfish.service.exceptions.enumerations.NotFoundConstant;
+import lombok.Getter;
 import org.apache.commons.lang3.BooleanUtils;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.slf4j.helpers.MessageFormatter;
 import org.zalando.problem.Status;
 import org.zalando.problem.StatusType;
 
@@ -13,8 +13,9 @@ import java.util.function.Supplier;
 import static org.zalando.problem.Status.BAD_REQUEST;
 import static org.zalando.problem.Status.NOT_FOUND;
 
-@ResponseStatus(HttpStatus.BAD_REQUEST)
+@Getter
 public class BusinessException extends RuntimeException {
+
     private final String value;
     private final String message;
     private final StatusType status;
@@ -27,14 +28,33 @@ public class BusinessException extends RuntimeException {
         this.status = NOT_FOUND;
     }
 
-    private BusinessException(ErrorConstants errorConstants, Status status) {
+    public BusinessException(ErrorConstants errorConstants, Status status) {
         super(errorConstants.getValue());
         this.value = errorConstants.getValue();
         this.message = errorConstants.getMessage();
         this.status = status;
     }
 
-    private static void throwIf(
+    public BusinessException(String message) {
+        super(message);
+        this.message = message;
+        this.value = null;
+        this.status = null;
+    }
+
+    public static Supplier<BusinessException> notFound(Class<?> entityClass) {
+        return () -> new BusinessException(entityClass);
+    }
+
+    public static Supplier<BusinessException> notFound(String message, Object... args) {
+        return () -> new BusinessException(MessageFormatter.arrayFormat(message, args).getMessage());
+    }
+
+    public static Supplier<BusinessException> by(ErrorConstants errorConstants) {
+        return () -> new BusinessException(errorConstants, BAD_REQUEST);
+    }
+
+    public static void throwIf(
             Boolean conditional,
             ErrorConstants errorConstants,
             Status status
@@ -44,23 +64,19 @@ public class BusinessException extends RuntimeException {
         }
     }
 
-    public static Supplier<BusinessException> notFound(ErrorConstants error) {
-        return () -> new BusinessException(error, NOT_FOUND);
-    }
-
-    public static Supplier<BusinessException> notFound(Class<?> entityClass) {
-        return () -> new BusinessException(entityClass);
-    }
-
-    public static void badRequest(ErrorConstants error) {
-        throw new BusinessException(error, BAD_REQUEST);
-    }
-
     public static void throwIf(Boolean conditional, ErrorConstants errorConstants) {
         BusinessException.throwIf(conditional, errorConstants, BAD_REQUEST);
     }
 
+    public static void throwIfNot(
+            Boolean conditional,
+            ErrorConstants errorConstants,
+            Status status
+    ) {
+        BusinessException.throwIf(BooleanUtils.negate(conditional), errorConstants, status);
+    }
+
     public static void throwIfNot(Boolean conditional, ErrorConstants errorConstants) {
-        BusinessException.throwIf(BooleanUtils.negate(conditional), errorConstants, BAD_REQUEST);
+        BusinessException.throwIf(BooleanUtils.negate(conditional), errorConstants);
     }
 }
