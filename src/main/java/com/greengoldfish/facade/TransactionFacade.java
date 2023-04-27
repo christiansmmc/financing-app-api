@@ -9,6 +9,7 @@ import com.greengoldfish.facade.dto.transaction.TransactionToUpdateDTO;
 import com.greengoldfish.facade.mapper.TransactionMapper;
 import com.greengoldfish.service.TransactionService;
 import com.greengoldfish.web.rest.vm.TransactionSummaryVM;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class TransactionFacade {
 
     private final TransactionMapper mapper;

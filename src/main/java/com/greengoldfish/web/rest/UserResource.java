@@ -4,14 +4,17 @@ import com.greengoldfish.config.AuthoritiesConstants;
 import com.greengoldfish.facade.UserFacade;
 import com.greengoldfish.facade.dto.user.UserIdDTO;
 import com.greengoldfish.facade.dto.user.UserToCreateDTO;
+import com.greengoldfish.facade.dto.user.UserToGetDTO;
 import com.greengoldfish.facade.dto.user.UserToUpdateDTO;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +28,7 @@ import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/api")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserResource {
 
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
@@ -52,5 +55,13 @@ public class UserResource {
         headers.add("X-New-Token", jwt);
 
         return ResponseEntity.ok().headers(headers).body(response);
+    }
+
+    @Secured(AuthoritiesConstants.USER)
+    @GetMapping("/users")
+    public ResponseEntity<UserToGetDTO> getInfoByLoggedUser() {
+        log.debug("REST request to get logged user info");
+        UserToGetDTO response = facade.getInfoByLoggedUser();
+        return ResponseEntity.ok().body(response);
     }
 }

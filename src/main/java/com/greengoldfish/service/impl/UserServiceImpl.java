@@ -11,7 +11,7 @@ import com.greengoldfish.service.UserService;
 import com.greengoldfish.service.exceptions.BusinessException;
 import com.greengoldfish.service.exceptions.enumerations.ErrorConstants;
 import com.greengoldfish.util.SecurityUtils;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,7 +27,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
@@ -76,6 +76,11 @@ public class UserServiceImpl implements UserService {
         RequestContextHolder.currentRequestAttributes().setAttribute("jwt", jwt, RequestAttributes.SCOPE_REQUEST);
 
         return repository.save(userToUpdate);
+    }
+
+    @Override
+    public User getByLoggedUser() {
+        return getLoggedUser();
     }
 
     public String createNewTokenForLoggedUser(User user) {

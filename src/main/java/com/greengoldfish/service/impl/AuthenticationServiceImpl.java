@@ -7,14 +7,14 @@ import com.greengoldfish.facade.dto.AuthenticationRequestDTO;
 import com.greengoldfish.facade.dto.AuthenticationResponseDTO;
 import com.greengoldfish.repository.UserRepository;
 import com.greengoldfish.service.AuthenticationService;
-import com.greengoldfish.service.exceptions.BusinessException;
-import lombok.RequiredArgsConstructor;
+import com.greengoldfish.exception.BusinessException;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final JwtService jwtService;

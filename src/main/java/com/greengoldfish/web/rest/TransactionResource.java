@@ -9,6 +9,7 @@ import com.greengoldfish.facade.dto.transaction.TransactionToGetDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToUpdateDTO;
 import com.greengoldfish.web.rest.vm.TransactionSummaryVM;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class TransactionResource {
 
     private final Logger log = LoggerFactory.getLogger(TransactionResource.class);
