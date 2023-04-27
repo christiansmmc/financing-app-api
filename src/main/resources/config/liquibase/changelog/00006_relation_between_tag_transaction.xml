@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="01" author="christian">
+        <createTable tableName="transaction_tag">
+            <column name="transaction_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="transaction_id, tag_id" tableName="transaction_tag"/>
+    </changeSet>
+
+    <changeSet id="02" author="christian">
+        <addForeignKeyConstraint baseTableName="transaction_tag"
+                                 baseColumnNames="transaction_id"
+                                 referencedTableName="transaction"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_transaction_tag_tag_id"/>
+
+        <addForeignKeyConstraint baseTableName="transaction_tag"
+                                 baseColumnNames="tag_id"
+                                 referencedTableName="tag"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_transaction_tag_transaction_id"/>
+    </changeSet>
+</databaseChangeLog>

@@ -14,6 +14,13 @@
     <property name="datetimeType" value="datetime(6)" dbms="mysql, mariadb"/>
     <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2"/>
 
-    <includeAll path="config/liquibase/changelog"/>
+<!--    <includeAll path="config/liquibase/changelog"/>-->
+
+    <include file="config/liquibase/changelog/00001_create_user_entity.xml"/>
+    <include file="config/liquibase/changelog/00002_create_transaction_entity.xml"/>
+    <include file="config/liquibase/changelog/00003_create_authority_entity.xml"/>
+    <include file="config/liquibase/changelog/00004_relation_between_user_transaction.xml"/>
+    <include file="config/liquibase/changelog/00005_create_tag_entity.xml"/>
+    <include file="config/liquibase/changelog/00006_relation_between_tag_transaction.xml"/>
 
 </databaseChangeLog>
