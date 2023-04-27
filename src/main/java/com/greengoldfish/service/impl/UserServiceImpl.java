@@ -8,8 +8,8 @@ import com.greengoldfish.domain.User;
 import com.greengoldfish.repository.AuthorityRepository;
 import com.greengoldfish.repository.UserRepository;
 import com.greengoldfish.service.UserService;
-import com.greengoldfish.service.exceptions.BusinessException;
-import com.greengoldfish.service.exceptions.enumerations.ErrorConstants;
+import com.greengoldfish.exception.BusinessException;
+import com.greengoldfish.exception.enumerations.ErrorConstants;
 import com.greengoldfish.util.SecurityUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         Authority authority = authorityRepository.findByName(AuthoritiesConstants.USER)
-                .orElseThrow(BusinessException.notFound(Authority.class));
+                .orElseThrow(BusinessException.notFound(User.class));
         Set<Authority> authorities = new HashSet<>();
         authorities.add(authority);
 

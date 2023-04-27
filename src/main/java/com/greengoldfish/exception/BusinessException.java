@@ -1,7 +1,7 @@
-package com.greengoldfish.config.exception;
+package com.greengoldfish.exception;
 
-import com.greengoldfish.service.exceptions.enumerations.ErrorConstants;
-import com.greengoldfish.service.exceptions.enumerations.NotFoundConstant;
+import com.greengoldfish.exception.enumerations.ErrorConstants;
+import com.greengoldfish.exception.enumerations.NotFoundConstant;
 import lombok.Getter;
 import org.apache.commons.lang3.BooleanUtils;
 import org.slf4j.helpers.MessageFormatter;

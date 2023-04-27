@@ -1,4 +1,4 @@
-package com.greengoldfish.service.exceptions.enumerations;
+package com.greengoldfish.exception.enumerations;
 
 public enum ErrorConstants {
     GENERAL {
