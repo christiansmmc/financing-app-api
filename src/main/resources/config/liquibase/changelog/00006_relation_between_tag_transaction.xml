@@ -7,29 +7,19 @@
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <changeSet id="01" author="christian">
-        <createTable tableName="transaction_tag">
-            <column name="transaction_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="tag_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="transaction_id, tag_id" tableName="transaction_tag"/>
+        <addColumn tableName="transaction">
+            <column name="tag_id" type="BIGINT"/>
+        </addColumn>
     </changeSet>
 
     <changeSet id="02" author="christian">
-        <addForeignKeyConstraint baseTableName="transaction_tag"
-                                 baseColumnNames="transaction_id"
-                                 referencedTableName="transaction"
+        <addForeignKeyConstraint baseColumnNames="tag_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction_tag_id"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
                                  referencedColumnNames="id"
-                                 constraintName="fk_transaction_tag_tag_id"/>
-
-        <addForeignKeyConstraint baseTableName="transaction_tag"
-                                 baseColumnNames="tag_id"
                                  referencedTableName="tag"
-                                 referencedColumnNames="id"
-                                 constraintName="fk_transaction_tag_transaction_id"/>
+                                 validate="true"/>
     </changeSet>
 </databaseChangeLog>

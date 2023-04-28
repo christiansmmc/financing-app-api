@@ -15,9 +15,13 @@
     </changeSet>
 
     <changeSet id="02" author="christian">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="transaction"
-                                 constraintName="FK6p2u50v8fg2y0js6djc6xanit" deferrable="false"
-                                 initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user"
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="transaction"
+                                 constraintName="fk_transaction_user_id"
+                                 deferrable="false"
+                                 initiallyDeferred="false"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"
                                  validate="true"/>
     </changeSet>
 </databaseChangeLog>

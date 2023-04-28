@@ -1,7 +1,8 @@
 package com.greengoldfish.facade.dto.transaction;
 
 import com.greengoldfish.domain.enumeration.TransactionType;
-import com.greengoldfish.facade.dto.user.UserIdDTO;
+import com.greengoldfish.facade.dto.tag.TagToCreateDTO;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -31,4 +32,7 @@ public class TransactionToCreateDTO implements Serializable {
     private TransactionType type;
 
     private LocalDate date;
+
+    @Valid
+    private TagToCreateDTO tag;
 }

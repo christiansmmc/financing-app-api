@@ -11,6 +11,7 @@ import com.greengoldfish.web.rest.vm.TransactionSummaryVM;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -30,12 +31,11 @@ import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor
 public class TransactionResource {
-
-    private final Logger log = LoggerFactory.getLogger(TransactionResource.class);
 
     private final TransactionFacade facade;
 

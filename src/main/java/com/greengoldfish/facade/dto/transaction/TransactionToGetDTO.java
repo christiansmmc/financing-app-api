@@ -1,6 +1,7 @@
 package com.greengoldfish.facade.dto.transaction;
 
 import com.greengoldfish.domain.enumeration.TransactionType;
+import com.greengoldfish.facade.dto.tag.TagDTO;
 import com.greengoldfish.facade.dto.user.UserIdDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,4 +31,6 @@ public class TransactionToGetDTO implements Serializable {
     private LocalDate date;
 
     private UserIdDTO user;
+
+    private TagDTO tag;
 }

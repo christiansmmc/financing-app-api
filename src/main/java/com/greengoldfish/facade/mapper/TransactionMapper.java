@@ -9,7 +9,7 @@ import com.greengoldfish.facade.dto.transaction.TransactionToUpdateDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring", uses = {}, unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", uses = {TagMapper.class}, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TransactionMapper extends EntityMapper<TransactionDTO, Transaction> {
     Transaction toEntity(TransactionToCreateDTO dto);
 
