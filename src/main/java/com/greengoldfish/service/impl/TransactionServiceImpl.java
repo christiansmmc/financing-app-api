@@ -1,10 +1,12 @@
 package com.greengoldfish.service.impl;
 
+import com.greengoldfish.domain.Tag;
 import com.greengoldfish.domain.Transaction;
 import com.greengoldfish.domain.User;
 import com.greengoldfish.domain.enumeration.MonthType;
 import com.greengoldfish.domain.enumeration.TransactionType;
 import com.greengoldfish.repository.TransactionRepository;
+import com.greengoldfish.service.TagService;
 import com.greengoldfish.service.TransactionService;
 import com.greengoldfish.service.UserService;
 import com.greengoldfish.exception.BusinessException;
@@ -23,6 +25,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository repository;
     private final UserService userService;
+    private final TagService tagService;
 
     @Override
     public Transaction create(Transaction transaction) {
@@ -30,6 +33,10 @@ public class TransactionServiceImpl implements TransactionService {
         LocalDate transactionDate = transaction.getDate() != null
                 ? transaction.getDate()
                 : LocalDate.now();
+        if (transaction.getTag() != null) {
+            Tag tag = tagService.findById(transaction.getTag().getId());
+            transaction.setTag(tag);
+        }
 
         transaction.setUser(loggedUser);
         transaction.setDate(transactionDate);
@@ -61,6 +68,11 @@ public class TransactionServiceImpl implements TransactionService {
     public Transaction update(Transaction transaction) {
         Transaction transactionToUpdate = findById(transaction.getId());
 
+        transactionToUpdate.setTag(
+                transaction.getTag() != null
+                        ? tagService.findById(transaction.getTag().getId())
+                        : null
+        );
         transactionToUpdate.setName(transaction.getName());
         transactionToUpdate.setDescription(transaction.getDescription());
         transactionToUpdate.setAmount(transaction.getAmount());
@@ -87,13 +99,24 @@ public class TransactionServiceImpl implements TransactionService {
                     lastDate = LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth());
                 }
                 case LAST -> {
-                    initialDate = LocalDate.now().minusMonths(1).withDayOfMonth(1);
-                    lastDate = LocalDate.now().minusMonths(1).withDayOfMonth(LocalDate.now().minusMonths(1).lengthOfMonth());
+                    initialDate = LocalDate.now()
+                            .minusMonths(1)
+                            .withDayOfMonth(1);
+                    lastDate = LocalDate.now()
+                            .minusMonths(1)
+                            .withDayOfMonth(
+                                    LocalDate.now()
+                                            .minusMonths(1)
+                                            .lengthOfMonth()
+                            );
                 }
             }
         }
 
-        BusinessException.throwIf(initialDate == null && lastDate == null, ErrorConstants.DATES_CANNOT_BE_NULL);
+        BusinessException.throwIf(
+                initialDate == null && lastDate == null,
+                ErrorConstants.DATES_CANNOT_BE_NULL
+        );
 
         List<Transaction> transactions = repository.findAllByUserAndDateIsBetween(user, initialDate, lastDate);
 

@@ -1,12 +1,8 @@
 package com.greengoldfish.facade.dto.transaction;
 
-import com.greengoldfish.domain.User;
 import com.greengoldfish.domain.enumeration.TransactionType;
+import com.greengoldfish.facade.dto.tag.TagDTO;
 import com.greengoldfish.facade.dto.user.UserIdDTO;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,4 +31,6 @@ public class TransactionDTO implements Serializable {
     private LocalDate date;
 
     private UserIdDTO user;
+
+    private TagDTO tag;
 }

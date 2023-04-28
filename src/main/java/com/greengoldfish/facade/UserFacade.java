@@ -31,7 +31,7 @@ public class UserFacade {
         return mapper.toIdDto(service.update(user));
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public UserToGetDTO getInfoByLoggedUser() {
         return mapper.toGetDto(service.getLoggedUser());
     }
