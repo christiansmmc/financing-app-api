@@ -26,7 +26,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Transaction create(Transaction transaction) {
-        User loggedUser = userService.getLoggedUser();
+        User loggedUser = userService.findLoggedUser();
         LocalDate transactionDate = transaction.getDate() != null
                 ? transaction.getDate()
                 : LocalDate.now();
@@ -42,7 +42,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<Transaction> findAllByLoggedUser(LocalDate initialDate, LocalDate lastDate) {
-        User loggedUser = userService.getLoggedUser();
+        User loggedUser = userService.findLoggedUser();
 
         if (initialDate == null && lastDate == null) {
             return repository.findAllByUser(loggedUser);
@@ -56,7 +56,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Transaction findByIdAndLoggedUser(Long id) {
-        User loggedUser = userService.getLoggedUser();
+        User loggedUser = userService.findLoggedUser();
         return repository.findByIdAndUser(id, loggedUser)
                 .orElseThrow(BusinessException.notFound(Transaction.class));
     }
@@ -87,7 +87,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public TransactionSummaryVM summary(LocalDate initialDate, LocalDate lastDate, MonthType month) {
-        User user = userService.getLoggedUser();
+        User user = userService.findLoggedUser();
 
         if (month != null) {
             switch (month) {

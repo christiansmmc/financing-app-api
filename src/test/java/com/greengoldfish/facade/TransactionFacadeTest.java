@@ -1,15 +1,14 @@
 package com.greengoldfish.facade;
 
+import com.greengoldfish.controller.vm.TransactionSummaryVM;
 import com.greengoldfish.domain.Transaction;
 import com.greengoldfish.domain.enumeration.MonthType;
-import com.greengoldfish.facade.dto.transaction.TransactionDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionIdDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToCreateDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToGetDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToUpdateDTO;
 import com.greengoldfish.facade.mapper.TransactionMapper;
 import com.greengoldfish.service.TransactionService;
-import com.greengoldfish.controller.vm.TransactionSummaryVM;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,7 +49,7 @@ class TransactionFacadeTest {
     void create() {
         TransactionToCreateDTO dto = new TransactionToCreateDTO();
         Transaction transaction = new Transaction();
-        TransactionDTO transactionDTO = new TransactionDTO();
+        TransactionIdDTO idDTO = new TransactionIdDTO();
 
         Mockito
                 .when(transactionMapper.toEntity(dto))
@@ -59,8 +58,8 @@ class TransactionFacadeTest {
                 .when(transactionService.create(transaction))
                 .thenReturn(transaction);
         Mockito
-                .when(transactionMapper.toDto(transaction))
-                .thenReturn(transactionDTO);
+                .when(transactionMapper.toIdDto(transaction))
+                .thenReturn(idDTO);
 
         facade.create(dto);
 
@@ -72,8 +71,7 @@ class TransactionFacadeTest {
                 .create(transaction);
         Mockito
                 .verify(transactionMapper, Mockito.times(1))
-                .toDto(transaction);
-
+                .toIdDto(transaction);
     }
 
     @Test

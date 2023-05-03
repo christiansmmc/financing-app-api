@@ -1,14 +1,13 @@
 package com.greengoldfish.controller;
 
 import com.greengoldfish.config.AuthoritiesConstants;
+import com.greengoldfish.controller.vm.TransactionSummaryVM;
 import com.greengoldfish.domain.enumeration.MonthType;
 import com.greengoldfish.facade.TransactionFacade;
-import com.greengoldfish.facade.dto.transaction.TransactionDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionIdDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToCreateDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToGetDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToUpdateDTO;
-import com.greengoldfish.controller.vm.TransactionSummaryVM;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,11 +38,11 @@ public class TransactionController {
 
     @Secured(AuthoritiesConstants.USER)
     @PostMapping("/transactions")
-    public ResponseEntity<TransactionDTO> create(
+    public ResponseEntity<TransactionIdDTO> create(
             @RequestBody @Valid TransactionToCreateDTO dto
     ) throws URISyntaxException {
         log.debug("REST request to create transaction");
-        TransactionDTO response = facade.create(dto);
+        TransactionIdDTO response = facade.create(dto);
         return ResponseEntity.created(new URI("/api/transaction/" + response.getId())).body(response);
     }
 

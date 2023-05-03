@@ -5,9 +5,7 @@ import com.greengoldfish.domain.User;
 public interface UserService {
     User create(User user);
 
-    User getLoggedUser();
+    User findLoggedUser();
 
     User update(User user);
-
-    User getByLoggedUser();
 }

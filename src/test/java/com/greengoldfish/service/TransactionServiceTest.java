@@ -67,7 +67,7 @@ class TransactionServiceTest {
         });
 
         Mockito
-                .when(userService.getLoggedUser())
+                .when(userService.findLoggedUser())
                 .thenReturn(user);
         Mockito
                 .when(tagService.findById(tag.getId()))
@@ -85,7 +85,7 @@ class TransactionServiceTest {
 
         Mockito
                 .verify(userService, Mockito.times(1))
-                .getLoggedUser();
+                .findLoggedUser();
         Mockito
                 .verify(tagService, Mockito.times(1))
                 .findById(tag.getId());
@@ -105,7 +105,7 @@ class TransactionServiceTest {
         });
 
         Mockito
-                .when(userService.getLoggedUser())
+                .when(userService.findLoggedUser())
                 .thenReturn(user);
         Mockito
                 .when(tagService.findById(tag.getId()))
@@ -123,7 +123,7 @@ class TransactionServiceTest {
 
         Mockito
                 .verify(userService, Mockito.times(1))
-                .getLoggedUser();
+                .findLoggedUser();
         Mockito
                 .verify(tagService, Mockito.times(1))
                 .findById(tag.getId());
@@ -138,7 +138,7 @@ class TransactionServiceTest {
         Transaction transactionCreated = createTransaction(UnaryOperator.identity());
 
         Mockito
-                .when(userService.getLoggedUser())
+                .when(userService.findLoggedUser())
                 .thenReturn(user);
         Mockito
                 .when(repository.findAllByUser(user))
@@ -151,7 +151,7 @@ class TransactionServiceTest {
 
         Mockito
                 .verify(userService, Mockito.times(1))
-                .getLoggedUser();
+                .findLoggedUser();
         Mockito
                 .verify(repository, Mockito.times(1))
                 .findAllByUser(user);
@@ -168,7 +168,7 @@ class TransactionServiceTest {
         Transaction transactionCreated = createTransaction(UnaryOperator.identity());
 
         Mockito
-                .when(userService.getLoggedUser())
+                .when(userService.findLoggedUser())
                 .thenReturn(user);
         Mockito
                 .when(repository.findAllByUserAndDateIsBetween(user, initialDate, lastDate))
@@ -181,7 +181,7 @@ class TransactionServiceTest {
 
         Mockito
                 .verify(userService, Mockito.times(1))
-                .getLoggedUser();
+                .findLoggedUser();
         Mockito
                 .verify(repository, Mockito.times(1))
                 .findAllByUserAndDateIsBetween(user, initialDate, lastDate);
@@ -196,7 +196,7 @@ class TransactionServiceTest {
         Transaction transactionCreated = createTransaction(UnaryOperator.identity());
 
         Mockito
-                .when(userService.getLoggedUser())
+                .when(userService.findLoggedUser())
                 .thenReturn(user);
         Mockito
                 .when(repository.findByIdAndUser(transactionCreated.getId(), user))
@@ -206,7 +206,7 @@ class TransactionServiceTest {
 
         Mockito
                 .verify(userService, Mockito.times(1))
-                .getLoggedUser();
+                .findLoggedUser();
         Mockito
                 .verify(repository, Mockito.times(1))
                 .findByIdAndUser(transactionCreated.getId(), user);
@@ -218,7 +218,7 @@ class TransactionServiceTest {
         Long fakeTransactionId = faker.number().randomNumber();
 
         Mockito
-                .when(userService.getLoggedUser())
+                .when(userService.findLoggedUser())
                 .thenReturn(user);
         Mockito
                 .when(repository.findByIdAndUser(fakeTransactionId, user))
@@ -230,7 +230,7 @@ class TransactionServiceTest {
 
         Mockito
                 .verify(userService, Mockito.times(1))
-                .getLoggedUser();
+                .findLoggedUser();
         Mockito
                 .verify(repository, Mockito.times(1))
                 .findByIdAndUser(fakeTransactionId, user);
@@ -254,7 +254,7 @@ class TransactionServiceTest {
         });
 
         Mockito
-                .when(userService.getLoggedUser())
+                .when(userService.findLoggedUser())
                 .thenReturn(user);
         Mockito
                 .when(repository.findByIdAndUser(transaction.getId(), user))
@@ -275,7 +275,7 @@ class TransactionServiceTest {
 
         Mockito
                 .verify(userService, Mockito.times(1))
-                .getLoggedUser();
+                .findLoggedUser();
         Mockito
                 .verify(repository, Mockito.times(1))
                 .findByIdAndUser(transaction.getId(), user);
@@ -304,7 +304,7 @@ class TransactionServiceTest {
         });
 
         Mockito
-                .when(userService.getLoggedUser())
+                .when(userService.findLoggedUser())
                 .thenReturn(user);
         Mockito
                 .when(repository.findByIdAndUser(transaction.getId(), user))
@@ -322,7 +322,7 @@ class TransactionServiceTest {
 
         Mockito
                 .verify(userService, Mockito.times(1))
-                .getLoggedUser();
+                .findLoggedUser();
         Mockito
                 .verify(repository, Mockito.times(1))
                 .findByIdAndUser(transaction.getId(), user);
@@ -340,7 +340,7 @@ class TransactionServiceTest {
         Transaction transaction = createTransaction(UnaryOperator.identity());
 
         Mockito
-                .when(userService.getLoggedUser())
+                .when(userService.findLoggedUser())
                 .thenReturn(user);
         Mockito
                 .when(repository.findByIdAndUser(transaction.getId(), user))
@@ -353,7 +353,7 @@ class TransactionServiceTest {
 
         Mockito
                 .verify(userService, Mockito.times(1))
-                .getLoggedUser();
+                .findLoggedUser();
         Mockito
                 .verify(repository, Mockito.times(1))
                 .findByIdAndUser(transaction.getId(), user);
@@ -377,7 +377,7 @@ class TransactionServiceTest {
         });
 
         Mockito
-                .when(userService.getLoggedUser())
+                .when(userService.findLoggedUser())
                 .thenReturn(user);
         Mockito
                 .when(repository.findAllByUserAndDateIsBetween(Mockito.eq(user), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class)))
@@ -396,7 +396,7 @@ class TransactionServiceTest {
 
         Mockito
                 .verify(userService, Mockito.times(1))
-                .getLoggedUser();
+                .findLoggedUser();
         Mockito
                 .verify(repository, Mockito.times(1))
                 .findAllByUserAndDateIsBetween(Mockito.eq(user), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class));
@@ -417,7 +417,7 @@ class TransactionServiceTest {
         });
 
         Mockito
-                .when(userService.getLoggedUser())
+                .when(userService.findLoggedUser())
                 .thenReturn(user);
         Mockito
                 .when(repository.findAllByUserAndDateIsBetween(Mockito.eq(user), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class)))
@@ -436,7 +436,7 @@ class TransactionServiceTest {
 
         Mockito
                 .verify(userService, Mockito.times(1))
-                .getLoggedUser();
+                .findLoggedUser();
         Mockito
                 .verify(repository, Mockito.times(1))
                 .findAllByUserAndDateIsBetween(Mockito.eq(user), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class));
@@ -447,7 +447,7 @@ class TransactionServiceTest {
         User user = createUser(UnaryOperator.identity());
 
         Mockito
-                .when(userService.getLoggedUser())
+                .when(userService.findLoggedUser())
                 .thenReturn(user);
 
         org.junit.jupiter.api.Assertions.assertThrows(BusinessException.class, () -> {
@@ -456,7 +456,7 @@ class TransactionServiceTest {
 
         Mockito
                 .verify(userService, Mockito.times(1))
-                .getLoggedUser();
+                .findLoggedUser();
         Mockito
                 .verify(repository, Mockito.times(0))
                 .findAllByUserAndDateIsBetween(Mockito.any(User.class), Mockito.any(LocalDate.class), Mockito.any(LocalDate.class));
