@@ -61,7 +61,18 @@ public enum ErrorConstants {
         public String getMessage() {
             return "The initial date and last date param cannot be null";
         }
-    };
+    },
+    TRANSACTION_NOT_FROM_USER {
+        @Override
+        public String getValue() {
+            return "error.transaction.not.from.user";
+        }
+        @Override
+        public String getMessage() {
+            return "The informed transaction is not from user";
+        }
+    }
+    ;
 
     public abstract String getValue();
     public abstract String getMessage();

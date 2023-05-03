@@ -1,4 +1,4 @@
-package com.greengoldfish.service.impl;
+package com.greengoldfish.service;
 
 import com.greengoldfish.domain.Tag;
 import com.greengoldfish.domain.Transaction;
@@ -44,7 +44,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> findAll(LocalDate initialDate, LocalDate lastDate) {
+    public List<Transaction> findAllByLoggedUser(LocalDate initialDate, LocalDate lastDate) {
         User loggedUser = userService.getLoggedUser();
 
         if (initialDate == null && lastDate == null) {
@@ -58,7 +58,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public Transaction findById(Long id) {
+    public Transaction findByIdAndLoggedUser(Long id) {
         User loggedUser = userService.getLoggedUser();
         return repository.findByIdAndUser(id, loggedUser)
                 .orElseThrow(BusinessException.notFound(Transaction.class));
@@ -66,7 +66,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Transaction update(Transaction transaction) {
-        Transaction transactionToUpdate = findById(transaction.getId());
+        Transaction transactionToUpdate = findByIdAndLoggedUser(transaction.getId());
 
         transactionToUpdate.setTag(
                 transaction.getTag() != null
@@ -84,7 +84,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public void delete(Long id) {
-        Transaction transaction = findById(id);
+        Transaction transaction = findByIdAndLoggedUser(id);
         repository.delete(transaction);
     }
 

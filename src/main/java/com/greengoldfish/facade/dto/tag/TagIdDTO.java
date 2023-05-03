@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TagToCreateDTO implements Serializable {
+public class TagIdDTO implements Serializable {
 
     @NotNull
     private Long id;

@@ -2,7 +2,6 @@ package com.greengoldfish.config;
 
 import com.greengoldfish.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,7 +22,7 @@ public class ApplicationConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> UserPrincipal.create(userRepository.findByEmailFetchRoles(username)
-                        .orElseThrow(() -> new UsernameNotFoundException("User not found")));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found")));
     }
 
     @Bean

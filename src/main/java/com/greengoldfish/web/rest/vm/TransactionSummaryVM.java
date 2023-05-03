@@ -1,7 +1,5 @@
 package com.greengoldfish.web.rest.vm;
 
-import com.greengoldfish.domain.enumeration.TransactionType;
-import com.greengoldfish.facade.dto.user.UserIdDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
