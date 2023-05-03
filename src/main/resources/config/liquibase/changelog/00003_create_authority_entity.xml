@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="01" author="christian">
+    <changeSet id="00003-01" author="christian">
         <createTable tableName="authority">
             <column name="name" type="varchar(50)">
                 <constraints primaryKey="true" nullable="false"/>
@@ -14,7 +14,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="02" author="christian">
+    <changeSet id="00001-02" author="christian">
         <createTable tableName="user_authority">
             <column name="user_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -27,7 +27,7 @@
         <addPrimaryKey columnNames="user_id, authority_name" tableName="user_authority"/>
     </changeSet>
 
-    <changeSet id="03" author="christian">
+    <changeSet id="00001-03" author="christian">
         <addForeignKeyConstraint baseTableName="user_authority"
                                  baseColumnNames="user_id"
                                  referencedTableName="_user"
@@ -41,7 +41,7 @@
                                  constraintName="fk_user_authority_authority_name"/>
     </changeSet>
 
-    <changeSet id="04" author="christian">
+    <changeSet id="00001-04" author="christian">
         <loadData encoding="UTF-8"
                   file="config/liquibase/data/authority.csv"
                   separator=";"
