@@ -61,14 +61,16 @@ tasks.named('test', Test) {
     outputs.dir snippetsDir
     useJUnitPlatform()
 
-    exclude "**/*IT*", "**/*IntTest*"
+    include "**/*Test.class"
+    exclude "**/*IT.class", "**/*IntTest.class"
 }
 
 tasks.register('integrationTest', Test) {
     outputs.dir snippetsDir
     useJUnitPlatform()
 
-    include "**/*IT*", "**/*IntTest*"
+    exclude "**/*Test.class"
+    include "**/*IT.class", "**/*IntTest.class"
 }
 
 tasks.named('asciidoctor') {

@@ -18,7 +18,10 @@ public class TagFacade {
     private final TagService service;
 
     @Transactional(readOnly = true)
-    public List<TagDTO> getAll() {
-        return service.getAll().stream().map(mapper::toDto).collect(Collectors.toList());
+    public List<TagDTO> findAll() {
+        return service.findAll()
+                .stream()
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
     }
 }
