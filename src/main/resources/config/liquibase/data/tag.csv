@@ -1,11 +1,11 @@
-id;name;description
-1;Bills;Expenses related to utilities, rent/mortgage, insurance, etc.
-2;Food;Expenses related to groceries, restaurants, and dining out.
-3;Transportation;Expenses related to gas, public transportation, and car maintenance.
-4;Entertainment;Expenses related to movies, concerts, books, and other leisure activities.
-5;Shopping;Expenses related to clothing, accessories, and other personal items.
-6;Health;Expenses related to medical bills, prescriptions, and health-related items.
-7;Travel;Expenses related to flights, hotels, and vacation activities.
-8;Gifts;Expenses related to giving gifts to others.
-9;Salary;Money you receive from a job, investments, or other sources.
-10;Miscellaneous;Any other expenses that don't fit into the above categories.
+id;name
+1;Bills
+2;Food
+3;Transportation
+4;Entertainment
+5;Shopping
+6;Health
+7;Travel
+8;Gifts
+9;Salary
+10;Miscellaneous

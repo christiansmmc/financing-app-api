@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="01" author="christian">
+    <changeSet id="00004-01" author="christian">
         <addColumn tableName="transaction">
             <column name="user_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -14,7 +14,7 @@
         </addColumn>
     </changeSet>
 
-    <changeSet id="02" author="christian">
+    <changeSet id="00004-02" author="christian">
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="transaction"
                                  constraintName="fk_transaction_user_id"

@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "tag")
+@Table(name = "credit_card")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @ToString
 @EqualsAndHashCode
@@ -31,15 +32,22 @@ import java.io.Serializable;
 @Builder(toBuilder = true)
 @Getter
 @Setter
-public class Tag implements Serializable {
+public class CreditCard implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @NotNull
+    @Column(name = "identifier")
+    private String identifier;
 
+    @NotNull
+    @Size(min = 1, max = 31)
+    @Column(name = "best_purchase_day")
+    private int bestPurchaseDay;
+
+    @NotNull
     @ManyToOne
-    private CreditCard creditCard;
+    private User user;
 }
