@@ -8,7 +8,6 @@ import com.greengoldfish.facade.dto.user.UserToUpdateDTO;
 import com.greengoldfish.facade.mapper.UserMapper;
 import com.greengoldfish.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +32,6 @@ public class UserFacade {
 
     @Transactional(readOnly = true)
     public UserToGetDTO getInfoByLoggedUser() {
-        return mapper.toGetDto(service.getLoggedUser());
+        return mapper.toGetDto(service.findLoggedUser());
     }
 }

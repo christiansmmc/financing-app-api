@@ -26,9 +26,9 @@ public class TransactionFacade {
     private final TransactionService service;
 
     @Transactional
-    public TransactionDTO create(TransactionToCreateDTO dto) {
+    public TransactionIdDTO create(TransactionToCreateDTO dto) {
         Transaction transaction = mapper.toEntity(dto);
-        return mapper.toDto(service.create(transaction));
+        return mapper.toIdDto(service.create(transaction));
     }
 
     @Transactional(readOnly = true)

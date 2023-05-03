@@ -32,11 +32,7 @@ public class TagControllerIT extends BaseAbstractIntegrationTestClass {
         long tagSize = tagRepository.count();
 
         mockMvc.perform(get(URL)
-                        .header(
-                                "Authorization", getClientAccessToken(
-                                        user.getEmail(),
-                                        password)
-                        ))
+                        .header("Authorization", getClientAccessToken(user.getEmail(), password)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$").isNotEmpty())

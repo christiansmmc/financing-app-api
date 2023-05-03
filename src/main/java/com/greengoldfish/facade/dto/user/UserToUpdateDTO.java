@@ -19,9 +19,7 @@ public class UserToUpdateDTO implements Serializable {
 
     private String password;
 
-    @NotBlank
     private String firstName;
 
-    @NotBlank
     private String lastName;
 }

@@ -72,21 +72,11 @@ public class TransactionControllerIT extends BaseAbstractIntegrationTestClass {
                 .build();
 
         mockMvc.perform(post(URL)
-                        .header(
-                                "Authorization", getClientAccessToken(
-                                        user.getEmail(),
-                                        password)
-                        )
+                        .header("Authorization", getClientAccessToken(user.getEmail(), password))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(TestUtil.convertObjectToJsonBytes(toCreateDTO)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("name").value(toCreateDTO.getName()))
-                .andExpect(jsonPath("description").value(toCreateDTO.getDescription()))
-                .andExpect(jsonPath("amount").value(toCreateDTO.getAmount()))
-                .andExpect(jsonPath("type").value(toCreateDTO.getType().name()))
-                .andExpect(jsonPath("date").value(toCreateDTO.getDate().toString()))
-                .andExpect(jsonPath("tag.id").value(tag.getId().intValue()))
-        ;
+                .andExpect(jsonPath("id").hasJsonPath());
     }
 
     @Test
@@ -96,15 +86,10 @@ public class TransactionControllerIT extends BaseAbstractIntegrationTestClass {
                 .build();
 
         mockMvc.perform(post(URL)
-                        .header(
-                                "Authorization", getClientAccessToken(
-                                        user.getEmail(),
-                                        password)
-                        )
+                        .header("Authorization", getClientAccessToken(user.getEmail(), password))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(TestUtil.convertObjectToJsonBytes(toCreateDTO)))
-                .andExpect(status().isBadRequest())
-        ;
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -112,11 +97,7 @@ public class TransactionControllerIT extends BaseAbstractIntegrationTestClass {
         Transaction transaction = createTransaction(it -> it.user(user));
 
         mockMvc.perform(get(URL)
-                        .header(
-                                "Authorization", getClientAccessToken(
-                                        user.getEmail(),
-                                        password)
-                        ))
+                        .header("Authorization", getClientAccessToken(user.getEmail(), password)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*].id").value(transaction.getId().intValue()))
                 .andExpect(jsonPath("$[*].name").value(transaction.getName()))
@@ -144,11 +125,7 @@ public class TransactionControllerIT extends BaseAbstractIntegrationTestClass {
         String url = String.format(URL + "?" + initialDateParam + "&" + lastDateParam);
 
         mockMvc.perform(get(url)
-                        .header(
-                                "Authorization", getClientAccessToken(
-                                        user.getEmail(),
-                                        password)
-                        ))
+                        .header("Authorization", getClientAccessToken(user.getEmail(), password)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()").value(1))
         ;
@@ -159,11 +136,7 @@ public class TransactionControllerIT extends BaseAbstractIntegrationTestClass {
         Transaction transaction = createTransaction(it -> it.user(user));
 
         mockMvc.perform(get(URL_ID, transaction.getId())
-                        .header(
-                                "Authorization", getClientAccessToken(
-                                        user.getEmail(),
-                                        password)
-                        ))
+                        .header("Authorization", getClientAccessToken(user.getEmail(), password)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(transaction.getId().intValue()))
                 .andExpect(jsonPath("$.name").value(transaction.getName()))
@@ -186,11 +159,7 @@ public class TransactionControllerIT extends BaseAbstractIntegrationTestClass {
                 .build();
 
         mockMvc.perform(get(URL_ID, transaction.getId())
-                        .header(
-                                "Authorization", getClientAccessToken(
-                                        user.getEmail(),
-                                        password)
-                        )
+                        .header("Authorization", getClientAccessToken(user.getEmail(), password))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(TestUtil.convertObjectToJsonBytes(toUpdateDTO)))
                 .andExpect(status().isOk())
@@ -202,11 +171,7 @@ public class TransactionControllerIT extends BaseAbstractIntegrationTestClass {
         Transaction transaction = createTransaction(it -> it.user(user));
 
         mockMvc.perform(delete(URL_ID, transaction.getId())
-                        .header(
-                                "Authorization", getClientAccessToken(
-                                        user.getEmail(),
-                                        password)
-                        ))
+                        .header("Authorization", getClientAccessToken(user.getEmail(), password)))
                 .andExpect(status().isNoContent());
 
         Assertions.assertThat(transactionRepository.findById(transaction.getId()))
@@ -222,11 +187,7 @@ public class TransactionControllerIT extends BaseAbstractIntegrationTestClass {
         });
 
         mockMvc.perform(get(URL + "/summary?month=CURRENT")
-                        .header(
-                                "Authorization", getClientAccessToken(
-                                        user.getEmail(),
-                                        password)
-                        ))
+                        .header("Authorization", getClientAccessToken(user.getEmail(), password)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalOutcome").value(transaction.getAmount().intValue()));
     }
