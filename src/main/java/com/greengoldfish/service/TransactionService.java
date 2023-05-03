@@ -2,7 +2,7 @@ package com.greengoldfish.service;
 
 import com.greengoldfish.domain.Transaction;
 import com.greengoldfish.domain.enumeration.MonthType;
-import com.greengoldfish.web.rest.vm.TransactionSummaryVM;
+import com.greengoldfish.controller.vm.TransactionSummaryVM;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;

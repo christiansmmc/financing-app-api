@@ -1,4 +1,4 @@
-package com.greengoldfish.web.rest.vm;
+package com.greengoldfish.controller.vm;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

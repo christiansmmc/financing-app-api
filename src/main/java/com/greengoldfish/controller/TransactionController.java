@@ -1,4 +1,4 @@
-package com.greengoldfish.web.rest;
+package com.greengoldfish.controller;
 
 import com.greengoldfish.config.AuthoritiesConstants;
 import com.greengoldfish.domain.enumeration.MonthType;
@@ -8,7 +8,7 @@ import com.greengoldfish.facade.dto.transaction.TransactionIdDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToCreateDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToGetDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToUpdateDTO;
-import com.greengoldfish.web.rest.vm.TransactionSummaryVM;
+import com.greengoldfish.controller.vm.TransactionSummaryVM;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor
-public class TransactionResource {
+public class TransactionController {
 
     private final TransactionFacade facade;
 

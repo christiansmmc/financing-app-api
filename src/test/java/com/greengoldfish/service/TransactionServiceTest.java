@@ -11,7 +11,7 @@ import com.greengoldfish.domain.enumeration.MonthType;
 import com.greengoldfish.domain.enumeration.TransactionType;
 import com.greengoldfish.exception.BusinessException;
 import com.greengoldfish.repository.TransactionRepository;
-import com.greengoldfish.web.rest.vm.TransactionSummaryVM;
+import com.greengoldfish.controller.vm.TransactionSummaryVM;
 import net.datafaker.Faker;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;

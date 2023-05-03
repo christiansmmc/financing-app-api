@@ -1,4 +1,4 @@
-package com.greengoldfish.web.rest;
+package com.greengoldfish.controller;
 
 import com.greengoldfish.config.AuthoritiesConstants;
 import com.greengoldfish.facade.UserFacade;
@@ -8,10 +8,7 @@ import com.greengoldfish.facade.dto.user.UserToGetDTO;
 import com.greengoldfish.facade.dto.user.UserToUpdateDTO;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -31,7 +28,7 @@ import java.net.URISyntaxException;
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor
-public class UserResource {
+public class UserController {
 
     private final UserFacade facade;
 

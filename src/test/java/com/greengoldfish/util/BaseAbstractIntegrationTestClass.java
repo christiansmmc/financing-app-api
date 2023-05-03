@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = GreenGoldfishApplication.class)
 @AutoConfigureMockMvc
-public abstract class BaseAbstractTestClass {
+public abstract class BaseAbstractIntegrationTestClass {
 
     @Autowired
     protected MockMvc mockMvc;
