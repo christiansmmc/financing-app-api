@@ -3,6 +3,7 @@ package com.greengoldfish.web.rest;
 import com.greengoldfish.config.AuthoritiesConstants;
 import com.greengoldfish.domain.enumeration.MonthType;
 import com.greengoldfish.facade.TransactionFacade;
+import com.greengoldfish.facade.dto.transaction.TransactionDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionIdDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToCreateDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToGetDTO;
@@ -10,10 +11,7 @@ import com.greengoldfish.facade.dto.transaction.TransactionToUpdateDTO;
 import com.greengoldfish.web.rest.vm.TransactionSummaryVM;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,28 +39,28 @@ public class TransactionResource {
 
     @Secured(AuthoritiesConstants.USER)
     @PostMapping("/transactions")
-    public ResponseEntity<TransactionIdDTO> create(
+    public ResponseEntity<TransactionDTO> create(
             @RequestBody @Valid TransactionToCreateDTO dto
     ) throws URISyntaxException {
         log.debug("REST request to create transaction");
-        TransactionIdDTO response = facade.create(dto);
+        TransactionDTO response = facade.create(dto);
         return ResponseEntity.created(new URI("/api/transaction/" + response.getId())).body(response);
     }
 
     @Secured(AuthoritiesConstants.USER)
     @GetMapping("/transactions")
-    public ResponseEntity<List<TransactionToGetDTO>> findAll(
+    public ResponseEntity<List<TransactionToGetDTO>> findAllByLoggedUser(
             @RequestParam(value = "initialDate", required = false) LocalDate initialDate,
             @RequestParam(value = "lastDate", required = false) LocalDate lastDate
     ) {
         log.debug("REST request to find all transactions");
-        List<TransactionToGetDTO> response = facade.findAll(initialDate, lastDate);
+        List<TransactionToGetDTO> response = facade.findAllByLoggedUser(initialDate, lastDate);
         return ResponseEntity.ok().body(response);
     }
 
     @Secured(AuthoritiesConstants.USER)
     @GetMapping("/transactions/{id}")
-    public ResponseEntity<TransactionToGetDTO> findAll(@PathVariable Long id) {
+    public ResponseEntity<TransactionToGetDTO> findById(@PathVariable Long id) {
         log.debug("REST request to find a transaction");
         TransactionToGetDTO response = facade.findById(id);
         return ResponseEntity.ok().body(response);
@@ -74,7 +72,7 @@ public class TransactionResource {
             @PathVariable Long id,
             @RequestBody @Valid TransactionToUpdateDTO dto
     ) {
-        log.debug("REST request to update a transaction");
+        log.debug("REST request to update a transaction with id: {}", id);
         TransactionIdDTO response = facade.update(dto);
         return ResponseEntity.ok().body(response);
     }
@@ -82,7 +80,7 @@ public class TransactionResource {
     @Secured(AuthoritiesConstants.USER)
     @DeleteMapping("/transactions/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        log.debug("REST request to delete a transaction");
+        log.debug("REST request to delete a transaction with id: {}", id);
         facade.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -2,6 +2,7 @@ package com.greengoldfish.facade;
 
 import com.greengoldfish.domain.Transaction;
 import com.greengoldfish.domain.enumeration.MonthType;
+import com.greengoldfish.facade.dto.transaction.TransactionDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionIdDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToCreateDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToGetDTO;
@@ -10,7 +11,6 @@ import com.greengoldfish.facade.mapper.TransactionMapper;
 import com.greengoldfish.service.TransactionService;
 import com.greengoldfish.web.rest.vm.TransactionSummaryVM;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,19 +26,22 @@ public class TransactionFacade {
     private final TransactionService service;
 
     @Transactional
-    public TransactionIdDTO create(TransactionToCreateDTO dto) {
+    public TransactionDTO create(TransactionToCreateDTO dto) {
         Transaction transaction = mapper.toEntity(dto);
-        return mapper.toIdDto(service.create(transaction));
+        return mapper.toDto(service.create(transaction));
     }
 
     @Transactional(readOnly = true)
-    public List<TransactionToGetDTO> findAll(LocalDate initialDate, LocalDate lastDate) {
-        return service.findAll(initialDate, lastDate).stream().map(mapper::toGetDto).collect(Collectors.toList());
+    public List<TransactionToGetDTO> findAllByLoggedUser(LocalDate initialDate, LocalDate lastDate) {
+        return service.findAllByLoggedUser(initialDate, lastDate)
+                .stream()
+                .map(mapper::toGetDto)
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public TransactionToGetDTO findById(Long id) {
-        return mapper.toGetDto(service.findById(id));
+        return mapper.toGetDto(service.findByIdAndLoggedUser(id));
     }
 
     @Transactional

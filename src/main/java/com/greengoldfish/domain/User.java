@@ -28,7 +28,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "user")
+@Table(name = "_user")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @ToString
 @EqualsAndHashCode

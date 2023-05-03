@@ -1,4 +1,4 @@
-package com.greengoldfish.service.impl;
+package com.greengoldfish.service;
 
 import com.greengoldfish.config.JwtService;
 import com.greengoldfish.config.UserPrincipal;

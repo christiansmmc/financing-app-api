@@ -21,7 +21,7 @@
                                  deferrable="false"
                                  initiallyDeferred="false"
                                  referencedColumnNames="id"
-                                 referencedTableName="user"
+                                 referencedTableName="_user"
                                  validate="true"/>
     </changeSet>
 </databaseChangeLog>
