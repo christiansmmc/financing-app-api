@@ -1,4 +1,4 @@
-package com.greengoldfish.web.rest;
+package com.greengoldfish.controller;
 
 import com.greengoldfish.domain.Tag;
 import com.greengoldfish.domain.Transaction;
@@ -9,7 +9,7 @@ import com.greengoldfish.facade.dto.transaction.TransactionToCreateDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToUpdateDTO;
 import com.greengoldfish.repository.TagRepository;
 import com.greengoldfish.repository.TransactionRepository;
-import com.greengoldfish.util.BaseAbstractTestClass;
+import com.greengoldfish.util.BaseAbstractIntegrationTestClass;
 import com.greengoldfish.util.TestUtil;
 import net.datafaker.Faker;
 import org.assertj.core.api.Assertions;
@@ -28,7 +28,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class TransactionResourceIT extends BaseAbstractTestClass {
+public class TransactionControllerIT extends BaseAbstractIntegrationTestClass {
 
     private static final String URL = "/api/transactions";
     private static final String URL_ID = "/api/transactions/{id}";

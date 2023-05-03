@@ -1,8 +1,8 @@
-package com.greengoldfish.web.rest;
+package com.greengoldfish.controller;
 
 import com.greengoldfish.domain.User;
 import com.greengoldfish.repository.TagRepository;
-import com.greengoldfish.util.BaseAbstractTestClass;
+import com.greengoldfish.util.BaseAbstractIntegrationTestClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class TagResourceIT extends BaseAbstractTestClass {
+public class TagControllerIT extends BaseAbstractIntegrationTestClass {
 
     private static final String URL = "/api/tags";
 

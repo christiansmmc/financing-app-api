@@ -9,7 +9,7 @@ import com.greengoldfish.facade.dto.transaction.TransactionToGetDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToUpdateDTO;
 import com.greengoldfish.facade.mapper.TransactionMapper;
 import com.greengoldfish.service.TransactionService;
-import com.greengoldfish.web.rest.vm.TransactionSummaryVM;
+import com.greengoldfish.controller.vm.TransactionSummaryVM;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

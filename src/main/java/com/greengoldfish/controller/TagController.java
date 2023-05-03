@@ -1,4 +1,4 @@
-package com.greengoldfish.web.rest;
+package com.greengoldfish.controller;
 
 import com.greengoldfish.config.AuthoritiesConstants;
 import com.greengoldfish.facade.TagFacade;
@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @AllArgsConstructor
-public class TagResource {
+public class TagController {
 
     private final TagFacade facade;
 

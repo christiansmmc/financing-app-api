@@ -9,7 +9,7 @@ import com.greengoldfish.facade.dto.transaction.TransactionToGetDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToUpdateDTO;
 import com.greengoldfish.facade.mapper.TransactionMapper;
 import com.greengoldfish.service.TransactionService;
-import com.greengoldfish.web.rest.vm.TransactionSummaryVM;
+import com.greengoldfish.controller.vm.TransactionSummaryVM;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

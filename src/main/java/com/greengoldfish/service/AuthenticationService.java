@@ -4,5 +4,5 @@ import com.greengoldfish.facade.dto.AuthenticationRequestDTO;
 import com.greengoldfish.facade.dto.AuthenticationResponseDTO;
 
 public interface AuthenticationService {
-    public AuthenticationResponseDTO authenticate(AuthenticationRequestDTO dto);
+    AuthenticationResponseDTO authenticate(AuthenticationRequestDTO dto);
 }
