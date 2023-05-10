@@ -1,4 +1,4 @@
-package com.greengoldfish.service;
+package com.greengoldfish.service.impl;
 
 import com.greengoldfish.domain.Tag;
 import com.greengoldfish.exception.BusinessException;

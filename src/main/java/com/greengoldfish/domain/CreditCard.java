@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
@@ -43,9 +45,10 @@ public class CreditCard implements Serializable {
     private String identifier;
 
     @NotNull
-    @Size(min = 1, max = 31)
+    @Min(1)
+    @Max(31)
     @Column(name = "best_purchase_day")
-    private int bestPurchaseDay;
+    private Integer bestPurchaseDay;
 
     @NotNull
     @ManyToOne

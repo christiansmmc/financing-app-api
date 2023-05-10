@@ -6,6 +6,7 @@ import com.greengoldfish.domain.Authority;
 import com.greengoldfish.domain.User;
 import com.greengoldfish.repository.AuthorityRepository;
 import com.greengoldfish.repository.UserRepository;
+import com.greengoldfish.service.impl.UserServiceImpl;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
