@@ -1,3 +1,7 @@
+logging:
+  level:
+    ROOT: DEBUG
+    com.greengoldfish: DEBUG
 spring:
   datasource:
     url: jdbc:h2:mem:green-goldfish-test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
