@@ -12,6 +12,7 @@ import com.greengoldfish.domain.enumeration.TransactionType;
 import com.greengoldfish.exception.BusinessException;
 import com.greengoldfish.repository.TransactionRepository;
 import com.greengoldfish.controller.vm.TransactionSummaryVM;
+import com.greengoldfish.service.impl.TransactionServiceImpl;
 import net.datafaker.Faker;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;

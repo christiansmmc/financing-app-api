@@ -24,6 +24,7 @@ import java.util.function.UnaryOperator;
 
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -151,6 +152,7 @@ public class TransactionControllerIT extends BaseAbstractIntegrationTestClass {
 
         TransactionToUpdateDTO toUpdateDTO = TransactionToUpdateDTO
                 .builder()
+                .id(transaction.getId())
                 .name(faker.friends().character())
                 .description(faker.friends().character())
                 .amount(BigDecimal.TEN)
@@ -158,7 +160,7 @@ public class TransactionControllerIT extends BaseAbstractIntegrationTestClass {
                 .date(LocalDate.now().withYear(1998))
                 .build();
 
-        mockMvc.perform(get(URL_ID, transaction.getId())
+        mockMvc.perform(patch(URL_ID, transaction.getId())
                         .header("Authorization", getClientAccessToken(user.getEmail(), password))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(TestUtil.convertObjectToJsonBytes(toUpdateDTO)))

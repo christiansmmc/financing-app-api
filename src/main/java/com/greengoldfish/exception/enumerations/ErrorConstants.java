@@ -71,7 +71,17 @@ public enum ErrorConstants {
         public String getMessage() {
             return "The informed transaction is not from user";
         }
-    }
+    },
+    CREDIT_CARD_NOT_FROM_USER {
+        @Override
+        public String getValue() {
+            return "error.credit.card.not.from.user";
+        }
+        @Override
+        public String getMessage() {
+            return "The informed credit card is not from logged user";
+        }
+    },
     ;
 
     public abstract String getValue();
