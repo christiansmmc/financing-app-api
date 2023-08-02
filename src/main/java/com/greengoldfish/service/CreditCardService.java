@@ -12,4 +12,6 @@ public interface CreditCardService {
     void delete(Long id);
 
     List<CreditCard> findAllFromLoggedUser();
+
+    CreditCard findById(Long id);
 }

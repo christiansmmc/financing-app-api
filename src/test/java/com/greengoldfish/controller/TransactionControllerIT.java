@@ -1,12 +1,15 @@
 package com.greengoldfish.controller;
 
+import com.greengoldfish.domain.CreditCard;
 import com.greengoldfish.domain.Tag;
 import com.greengoldfish.domain.Transaction;
 import com.greengoldfish.domain.User;
 import com.greengoldfish.domain.enumeration.TransactionType;
+import com.greengoldfish.facade.dto.creditcard.CreditCardIdDTO;
 import com.greengoldfish.facade.dto.tag.TagIdDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToCreateDTO;
 import com.greengoldfish.facade.dto.transaction.TransactionToUpdateDTO;
+import com.greengoldfish.repository.CreditCardRepository;
 import com.greengoldfish.repository.TagRepository;
 import com.greengoldfish.repository.TransactionRepository;
 import com.greengoldfish.util.BaseAbstractIntegrationTestClass;
@@ -38,6 +41,8 @@ public class TransactionControllerIT extends BaseAbstractIntegrationTestClass {
     private TagRepository tagRepository;
     @Autowired
     private TransactionRepository transactionRepository;
+    @Autowired
+    private CreditCardRepository creditCardRepository;
 
     private String password = "TEST";
     private User user;
@@ -57,6 +62,8 @@ public class TransactionControllerIT extends BaseAbstractIntegrationTestClass {
                 .findAny()
                 .orElseThrow();
 
+        CreditCard creditCard = createCreditCard(UnaryOperator.identity());
+
         TransactionToCreateDTO toCreateDTO = TransactionToCreateDTO
                 .builder()
                 .name(faker.eldenRing().location())
@@ -68,6 +75,12 @@ public class TransactionControllerIT extends BaseAbstractIntegrationTestClass {
                         TagIdDTO
                                 .builder()
                                 .id(tag.getId())
+                                .build()
+                )
+                .creditCard(
+                        CreditCardIdDTO
+                                .builder()
+                                .id(creditCard.getId())
                                 .build()
                 )
                 .build();
@@ -205,5 +218,17 @@ public class TransactionControllerIT extends BaseAbstractIntegrationTestClass {
 
         Transaction transaction = builder.apply(transactionBuilder).build();
         return transactionRepository.saveAndFlush(transaction);
+    }
+
+    private CreditCard createCreditCard(UnaryOperator<CreditCard.CreditCardBuilder> builder) {
+        CreditCard.CreditCardBuilder creditCardBuilder = CreditCard
+                .builder()
+                .id(faker.number().randomNumber())
+                .identifier(faker.eldenRing().location())
+                .bestPurchaseDay(faker.number().numberBetween(1, 15))
+                .user(this.user);
+
+        CreditCard creditCard = builder.apply(creditCardBuilder).build();
+        return creditCardRepository.saveAndFlush(creditCard);
     }
 }

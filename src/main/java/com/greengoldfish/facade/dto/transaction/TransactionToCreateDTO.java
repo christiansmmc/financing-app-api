@@ -1,6 +1,7 @@
 package com.greengoldfish.facade.dto.transaction;
 
 import com.greengoldfish.domain.enumeration.TransactionType;
+import com.greengoldfish.facade.dto.creditcard.CreditCardIdDTO;
 import com.greengoldfish.facade.dto.tag.TagIdDTO;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -35,4 +36,7 @@ public class TransactionToCreateDTO implements Serializable {
 
     @Valid
     private TagIdDTO tag;
+
+    @Valid
+    private CreditCardIdDTO creditCard;
 }

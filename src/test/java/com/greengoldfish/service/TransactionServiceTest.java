@@ -1,5 +1,6 @@
 package com.greengoldfish.service;
 
+import com.greengoldfish.controller.vm.TransactionSummaryVM;
 import com.greengoldfish.domain.Authority;
 import com.greengoldfish.domain.Tag;
 import com.greengoldfish.domain.Tag.TagBuilder;
@@ -11,7 +12,6 @@ import com.greengoldfish.domain.enumeration.MonthType;
 import com.greengoldfish.domain.enumeration.TransactionType;
 import com.greengoldfish.exception.BusinessException;
 import com.greengoldfish.repository.TransactionRepository;
-import com.greengoldfish.controller.vm.TransactionSummaryVM;
 import com.greengoldfish.service.impl.TransactionServiceImpl;
 import net.datafaker.Faker;
 import org.assertj.core.api.Assertions;
@@ -43,13 +43,16 @@ class TransactionServiceTest {
     private UserService userService;
     @Mock
     private TagService tagService;
+    @Mock
+    private CreditCardService creditCardService;
 
     @BeforeEach
     void setUp() {
         transactionService = new TransactionServiceImpl(
                 repository,
                 userService,
-                tagService
+                tagService,
+                creditCardService
         );
     }
 
@@ -466,6 +469,7 @@ class TransactionServiceTest {
     private User createUser(UnaryOperator<UserBuilder> builder) {
         UserBuilder userBuilder = User
                 .builder()
+                .id(faker.number().randomNumber())
                 .email(faker.internet().emailAddress())
                 .password(faker.internet().password(60, 60))
                 .firstName(faker.name().firstName())

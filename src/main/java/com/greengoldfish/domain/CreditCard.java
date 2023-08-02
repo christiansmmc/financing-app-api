@@ -10,11 +10,9 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,7 +26,6 @@ import java.io.Serializable;
 @Table(name = "credit_card")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @ToString
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder(toBuilder = true)
@@ -53,4 +50,26 @@ public class CreditCard implements Serializable {
     @NotNull
     @ManyToOne
     private User user;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CreditCard that = (CreditCard) o;
+
+        if (!id.equals(that.id)) return false;
+        if (!identifier.equals(that.identifier)) return false;
+        if (!bestPurchaseDay.equals(that.bestPurchaseDay)) return false;
+        return user.equals(that.user);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + identifier.hashCode();
+        result = 31 * result + bestPurchaseDay.hashCode();
+        result = 31 * result + user.hashCode();
+        return result;
+    }
 }
