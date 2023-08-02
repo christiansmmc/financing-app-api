@@ -196,6 +196,7 @@ class CreditCardServiceTest {
     private User createUser(UnaryOperator<UserBuilder> builder) {
         UserBuilder userBuilder = User
                 .builder()
+                .id(faker.number().randomNumber())
                 .email(faker.internet().emailAddress())
                 .password(faker.internet().password(60, 60))
                 .firstName(faker.name().firstName())
@@ -208,6 +209,7 @@ class CreditCardServiceTest {
     private CreditCard createCreditCard(UnaryOperator<CreditCard.CreditCardBuilder> builder) {
         CreditCardBuilder creditCardBuilder = CreditCard
                 .builder()
+                .id(faker.number().randomNumber())
                 .identifier(faker.lorem().characters(10))
                 .bestPurchaseDay(faker.random().nextInt(1, 31))
                 .user(createUser(UnaryOperator.identity()));

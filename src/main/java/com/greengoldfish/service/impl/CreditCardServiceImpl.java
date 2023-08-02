@@ -62,4 +62,10 @@ public class CreditCardServiceImpl implements CreditCardService {
         User loggedUser = userService.findLoggedUser();
         return repository.findAllByUser(loggedUser);
     }
+
+    @Override
+    public CreditCard findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(BusinessException.notFound(CreditCard.class));
+    }
 }

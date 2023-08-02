@@ -1,14 +1,16 @@
 package com.greengoldfish.service.impl;
 
+import com.greengoldfish.controller.vm.TransactionSummaryVM;
+import com.greengoldfish.domain.CreditCard;
 import com.greengoldfish.domain.Tag;
 import com.greengoldfish.domain.Transaction;
 import com.greengoldfish.domain.User;
 import com.greengoldfish.domain.enumeration.MonthType;
 import com.greengoldfish.domain.enumeration.TransactionType;
-import com.greengoldfish.repository.TransactionRepository;
 import com.greengoldfish.exception.BusinessException;
 import com.greengoldfish.exception.enumerations.ErrorConstants;
-import com.greengoldfish.controller.vm.TransactionSummaryVM;
+import com.greengoldfish.repository.TransactionRepository;
+import com.greengoldfish.service.CreditCardService;
 import com.greengoldfish.service.TagService;
 import com.greengoldfish.service.TransactionService;
 import com.greengoldfish.service.UserService;
@@ -26,6 +28,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository repository;
     private final UserService userService;
     private final TagService tagService;
+    private final CreditCardService creditCardService;
 
     @Override
     public Transaction create(Transaction transaction) {
@@ -33,9 +36,14 @@ public class TransactionServiceImpl implements TransactionService {
         LocalDate transactionDate = transaction.getDate() != null
                 ? transaction.getDate()
                 : LocalDate.now();
+
         if (transaction.getTag() != null) {
             Tag tag = tagService.findById(transaction.getTag().getId());
             transaction.setTag(tag);
+        }
+        if (transaction.getCreditCard() != null) {
+            CreditCard creditCard = creditCardService.findById(transaction.getCreditCard().getId());
+            transaction.setCreditCard(creditCard);
         }
 
         transaction.setUser(loggedUser);
