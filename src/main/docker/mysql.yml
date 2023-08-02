@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   green-goldfish:
-    image: arm64v8/mysql:oracle
+    image: mysql:8.0.34
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=green-goldfish

@@ -21,5 +21,6 @@
     <include file="config/liquibase/changelog/00005_create_tag_entity.xml"/>
     <include file="config/liquibase/changelog/00006_relation_between_tag_transaction.xml"/>
     <include file="config/liquibase/changelog/00007_create_credit_card_entity.xml"/>
+    <include file="config/liquibase/changelog/00008_relation_between_credit_card_transaction.xml"/>
 
 </databaseChangeLog>
